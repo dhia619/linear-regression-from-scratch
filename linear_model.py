@@ -12,7 +12,7 @@ class LinearRegression:
     def mse(self,predicted, actual):
         return np.mean((predicted - actual) ** 2)
 
-    def fit(self,epochs,lr,x,actual):
+    def fit(self,epochs,lr,x,actual,display_progress_rate,show_progress=False):
         n = np.shape(x)[1]
         for epoch in range(epochs):
             z = self.forward_pass(x)
@@ -21,7 +21,7 @@ class LinearRegression:
             self.weights -= lr * dw
             self.bias -= lr * db
 
-            if epoch % 10000 == 0:
+            if show_progress and display_progress_rate and epoch % display_progress_rate == 0:
                 print(f"epoch {epoch} | loss = {self.mse(z, actual)}")
 
     def r2(self,x,actual):
